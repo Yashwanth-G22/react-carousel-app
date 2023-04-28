@@ -41,8 +41,8 @@ export const StyledImagesContainer = styled.div`
 `;
 
 export const StyledImage = styled.img`
-    width: 900px;
-    height: 600px;
+    width: 800px;
+    height: 430px;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -61,4 +61,20 @@ export const CarouselDotsImageWrapper = styled.div`
     display: grid;
     gap: 5px;
     justify-content: center;
+`;
+
+export const DotsWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3px;
+`;
+
+export const StyledSpan = styled.span`
+    & > :active{
+    background-color: black;
+    border-radius: 100%;
+    height: 20px;
+    }
+
 `;

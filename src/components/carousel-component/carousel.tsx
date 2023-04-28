@@ -19,27 +19,40 @@ interface ICarouselProps {
      * default value horizontal
      */
     orientation?: 'horizontal' | 'vertical';
+    /**
+     * default value 2
+     */
+    selectedId?: number;
+
 }
 
 export const Carousel: FC = memo(({
     autoplay = false,
     loop = false,
-    nevigationType = 'dots',
+    nevigationType = 'arrow',
     orientation = 'horizontal',
+    selectedId = 2,
 }: ICarouselProps) => {
 
     const [currentImg, setCurrnetImg] = useState<number>(0);
-    const length = SliderData.length;
+    const dataLength = SliderData.length;
+
 
     const nextSlide = useCallback(() => {
-        setCurrnetImg(currentImg === length - 1 ? loop ? 0 : currentImg : currentImg + 1);
-    }, [currentImg, length, loop])
+        setCurrnetImg(currentImg === dataLength - 1 ? loop ? 0 : currentImg : currentImg + 1);
+    }, [currentImg, dataLength, loop])
 
     const prevSlide = useCallback(() => {
-        setCurrnetImg(currentImg === 0 ? loop ? length - 1 : currentImg : currentImg - 1);
-    }, [currentImg, length, loop])
+        setCurrnetImg(currentImg === 0 ? loop ? dataLength - 1 : currentImg : currentImg - 1);
+    }, [currentImg, dataLength, loop])
+
+    const dotsIndicatorSlider = useCallback((index: number) => {
+        setCurrnetImg(index);
+    }, []);
+
 
     const AutoPlaySlide = useCallback(() => {
+
         if (autoplay) {
             setInterval(() => nextSlide(), 3000)
         }
@@ -47,9 +60,20 @@ export const Carousel: FC = memo(({
 
     return (
         <CarouselWrapper>
-            <ArrowButtons nextSlide={nextSlide} prevSlide={prevSlide} loop={loop} orientation= {orientation}/>
+            {
+                nevigationType === 'arrow' ?
+                    <ArrowButtons nextSlide={nextSlide}
+                        prevSlide={prevSlide}
+                        loop={loop}
+                        orientation={orientation} />
+                    : null
+            }
             <CarouselImageWrapper>
-                <CarouselImages SliderData={SliderData} currentImg={currentImg} autoplay={AutoPlaySlide} nevigationType={nevigationType}/>
+                <CarouselImages SliderData={SliderData}
+                    currentImg={currentImg}
+                    autoplay={AutoPlaySlide}
+                    nevigationType={nevigationType}
+                    dotsSlider={dotsIndicatorSlider} />
             </CarouselImageWrapper>
         </CarouselWrapper>
     );

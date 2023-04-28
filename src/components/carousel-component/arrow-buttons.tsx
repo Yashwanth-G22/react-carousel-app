@@ -3,16 +3,17 @@ import { ButtonsWrapper, StyledLeftArrow, StyledRightArrow } from "./styles";
 
 interface IArrowButtonProps {
     loop: boolean;
-    nextSlide: ()=>void;
-    prevSlide: ()=>void;
+    nextSlide: () => void;
+    prevSlide: () => void;
+    orientation: string;
 }
 
-export const ArrowButtons = memo((props : IArrowButtonProps) => {
-    const { nextSlide, prevSlide } = props;
+export const ArrowButtons = memo((props: IArrowButtonProps) => {
+    const { nextSlide, prevSlide, orientation } = props;
     return (
         <ButtonsWrapper>
-            <StyledLeftArrow onClick={prevSlide}>{'<'}</StyledLeftArrow>
-            <StyledRightArrow onClick={ nextSlide}>{'>'}</StyledRightArrow>
+            <StyledLeftArrow onClick={prevSlide} className= {orientation === 'horizontal' ? 'horizontal' : 'vertical'}/>
+            <StyledRightArrow onClick={nextSlide} />
         </ButtonsWrapper>
     )
 })

@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import { FaAngleRight, FaAngleLeft, FaRegCircle } from 'react-icons/fa';
+
 
 export const CarouselWrapper = styled.div`
     height: 100%;
+    display: grid;
+    grid-template-columns: 700px;
+    justify-content: center;
 `;
  
 export const CarouselImageWrapper = styled.div`
@@ -11,26 +16,28 @@ export const CarouselImageWrapper = styled.div`
     align-items: center;
 `;
 
-export const StyledRightArrow = styled.button`
+export const StyledRightArrow = styled(FaAngleRight)`
     position: absolute;
     top: 50%;
-    right: 32px;
-    border: none;
-    background-color: black;
-    color: white;
+    right: 42px;
+    font-size: 40px;
+    color: black;
+    cursor: pointer;
 `;
 
-export const StyledLeftArrow = styled.button`
+export const StyledLeftArrow = styled(FaAngleLeft)`
     position: absolute;
     top: 50%;
-    left: 32px;
-    border: none;
-    background-color: black;
-    color: white;
+    left: 52px;
+    font-size: 40px;
+    color: black;
+    cursor: pointer;
+    
 `;
 
 export const StyledImagesContainer = styled.div`
-        align-items: center;
+        display: flex;
+        flex-direction: column;
 `;
 
 export const StyledImage = styled.img`
@@ -40,4 +47,18 @@ export const StyledImage = styled.img`
 
 export const ButtonsWrapper = styled.div`
     height: 100%;
+    display: flex;
+    flex-direction: row;
+`;
+
+export const DotIndication = styled(FaRegCircle)`
+    display: inline-flex;
+    cursor: pointer;
+    font-size: 20px;
+`;
+
+export const CarouselDotsImageWrapper = styled.div`
+    display: grid;
+    gap: 5px;
+    justify-content: center;
 `;

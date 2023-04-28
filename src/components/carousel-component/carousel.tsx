@@ -6,53 +6,50 @@ import { ArrowButtons } from './arrow-buttons';
 
 interface ICarouselProps {
     /**. default value false */
-    loop? : boolean;
+    loop?: boolean;
     /**
      * default value false
      */
-    autoplay? : boolean;
+    autoplay?: boolean;
     /**
      * default value arrow
      */
-    nevigationType? : 'arrow' | 'dots';
+    nevigationType?: 'arrow' | 'dots';
     /**
      * default value horizontal
      */
-    orientation? : 'horizontal' | 'vertical';
+    orientation?: 'horizontal' | 'vertical';
 }
 
 export const Carousel: FC = memo(({
     autoplay = false,
     loop = false,
-    nevigationType = 'arrow',
+    nevigationType = 'dots',
     orientation = 'horizontal',
-} : ICarouselProps) => {
+}: ICarouselProps) => {
 
-    const [currentImg, setCurrnetImg]= useState<number>(0);
+    const [currentImg, setCurrnetImg] = useState<number>(0);
     const length = SliderData.length;
 
-    const nextSlide = () => {
-        setCurrnetImg(currentImg === length -1 ? loop ? 0 :currentImg : currentImg + 1);
-    }
+    const nextSlide = useCallback(() => {
+        setCurrnetImg(currentImg === length - 1 ? loop ? 0 : currentImg : currentImg + 1);
+    }, [currentImg, length, loop])
 
-    const prevSlide = () => {
-        setCurrnetImg(currentImg === 0 ?loop? length-1 : currentImg : currentImg - 1);
-    }
+    const prevSlide = useCallback(() => {
+        setCurrnetImg(currentImg === 0 ? loop ? length - 1 : currentImg : currentImg - 1);
+    }, [currentImg, length, loop])
 
-    const AutoPlayImages = useCallback(()=> {
-        if(autoplay){
-            setInterval(()=> {
-                setCurrnetImg(currentImg === length -1 ? 0 : currentImg + 1)
-                console.log(currentImg)
-            }, 3000)
+    const AutoPlaySlide = useCallback(() => {
+        if (autoplay) {
+            setInterval(() => nextSlide(), 3000)
         }
-    }, [length, currentImg, autoplay])
+    }, [autoplay, nextSlide])
 
     return (
         <CarouselWrapper>
-            <ArrowButtons nextSlide= {nextSlide} prevSlide={prevSlide} loop= {loop} />
-            <CarouselImageWrapper onChange = {AutoPlayImages()}>
-                <CarouselImages SliderData={SliderData} currentImg = {currentImg} />
+            <ArrowButtons nextSlide={nextSlide} prevSlide={prevSlide} loop={loop} orientation= {orientation}/>
+            <CarouselImageWrapper>
+                <CarouselImages SliderData={SliderData} currentImg={currentImg} autoplay={AutoPlaySlide} nevigationType={nevigationType}/>
             </CarouselImageWrapper>
         </CarouselWrapper>
     );

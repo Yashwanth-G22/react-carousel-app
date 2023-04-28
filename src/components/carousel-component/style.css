@@ -1,0 +1,7 @@
+
+.dots-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3px;
+}

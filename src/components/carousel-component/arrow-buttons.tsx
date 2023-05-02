@@ -19,8 +19,8 @@ export const ArrowButtons = memo((props: IArrowButtonProps) => {
                 <StyledRightArrow onClick={nextSlide} />
             </ButtonsWrapper>
             : <StyledVerticalButton className={verticalIndicatorPosition === 'right' ? 'rightIndicator' : 'leftIndicator'}>
-                <StyledVerticalArrowUp onClick={nextSlide} />
-                <StyledVerticalArrowDown onClick={prevSlide}/>
+                <StyledVerticalArrowUp onClick={prevSlide} />
+                <StyledVerticalArrowDown onClick={nextSlide}/>
             </StyledVerticalButton>
         }
          </>

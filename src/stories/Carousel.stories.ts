@@ -43,6 +43,13 @@ export const Autoplay: Story = {
     }
 }
 
+export const HorizontalCarousel: Story = {
+    args: {
+        orientation: 'horizontal',
+        loop:false,
+    }
+}
+
 export const Loop: Story = {
     args: {
         loop: true,
@@ -52,6 +59,12 @@ export const Loop: Story = {
     }
 }
 
+export const VerticalCarousel: Story = {
+    args: {
+        orientation:'vertical',
+        loop:true,
+    }
+}
 export const Dots: Story = {
     args: {
         nevigationType: 'dots',
@@ -69,7 +82,7 @@ export const WithControlledMode: Story = {
 
 export const WithDefaultSelection: Story = {
     args: {
-        defaultSelectedId: 2,
+        defaultSelectedId: 1,
         multiMedia: 'image',
     }
 }
@@ -77,6 +90,7 @@ export const WithDefaultSelection: Story = {
 export const WithIndicatorPosition: Story = {
     args: {
         verticalIndicatorPosition: 'left',
+        orientation: 'vertical',
         multiMedia: 'image',
     }
 }

@@ -14,6 +14,8 @@ export const CarouselImageWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
 `;
 
 export const StyledRightArrow = styled(FaAngleRight)`
@@ -35,9 +37,10 @@ export const StyledLeftArrow = styled(FaAngleLeft)`
     
 `;
 
-export const StyledImagesContainer = styled.div`
+export const StyledMutliMediaContainer = styled.div`
         display: flex;
         flex-direction: column;
+        align-items: center;
 `;
 
 export const StyledImage = styled.img`
@@ -73,11 +76,11 @@ export const DotsWrapper = styled.div`
 
 export const StyledSpan = styled.span`
     & > :active{
-    background-color: white;
+    background-color: black;
     border-radius: 100%;
     height: 20px;
     }
-    background-color: black;
+    background-color: white;
     border-radius: 100%;
     height: 20px;
 `;
@@ -94,4 +97,9 @@ export const StyledVerticalButton = styled.div`
 export const StyledVerticalArrowUp = styled(FaChevronUp)`
 `;
 export const StyledVerticalArrowDown = styled(FaChevronDown)`
+`;
+
+export const StyledTextTag = styled.h1`
+    display: block;
+    justify-content: center;
 `;

@@ -1,7 +1,7 @@
 import { FC, memo, useState, useCallback, useEffect } from 'react';
 import { CarouselWrapper, CarouselImageWrapper } from './styles';
 import { CarouselImages } from './carousel-images';
-import { SliderData } from './slider-data';
+import { SliderData, VedioSliderData, SliderText } from './slider-data';
 import { ArrowButtons } from './arrow-buttons';
 
 interface ICarouselProps {
@@ -22,9 +22,13 @@ interface ICarouselProps {
      */
     orientation?: 'horizontal' | 'vertical';
     /**
-     * default 
+     * default false
      */
     controlled?: boolean;
+    /**
+     * default 2
+     */
+    selectedId?: number;
     /**
      * default is left
      */
@@ -36,17 +40,18 @@ interface ICarouselProps {
 }
 
 export const Carousel: FC = memo(({
-    multiMedia = 'image',
+    multiMedia = 'vedio',
     autoplay = false,
     loop = false,
     nevigationType = 'arrow',
-    orientation = 'vertical',
+    orientation = 'horizontal',
     verticalIndicatorPosition = 'left',
     controlled = false,
+    selectedId = 2,
 }: ICarouselProps) => {
 
     const [currentImg, setCurrnetImg] = useState<number>(0);
-    const dataLength = SliderData.length;
+    const dataLength = (multiMedia === 'image' ? SliderData :multiMedia === 'text' ? SliderText : VedioSliderData).length;
 
 
     const nextSlide = useCallback(() => {
@@ -69,8 +74,6 @@ export const Carousel: FC = memo(({
         }
     }, [autoplay, currentImg, dataLength, nextSlide]);
 
-
-
     return (
         <CarouselWrapper>
             {
@@ -84,8 +87,9 @@ export const Carousel: FC = memo(({
                     : null
             }
             <CarouselImageWrapper>
-                <CarouselImages SliderData={SliderData}
-                    currentImg={currentImg}
+                <CarouselImages 
+                    SliderData={ multiMedia === 'image' ? SliderData :multiMedia === 'text' ? SliderText : VedioSliderData}
+                    currentImg={ controlled ? selectedId : currentImg}
                     nevigationType={nevigationType}
                     dotsSlider={dotsIndicatorSlider}
                     multiMedia={multiMedia} />
@@ -93,3 +97,4 @@ export const Carousel: FC = memo(({
         </CarouselWrapper>
     );
 });
+ 

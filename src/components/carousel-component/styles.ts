@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaAngleRight, FaAngleLeft, FaRegCircle } from 'react-icons/fa';
+import { FaAngleRight, FaAngleLeft, FaRegCircle, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 
 export const CarouselWrapper = styled.div`
@@ -8,7 +8,7 @@ export const CarouselWrapper = styled.div`
     grid-template-columns: 700px;
     justify-content: center;
 `;
- 
+
 export const CarouselImageWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -43,6 +43,7 @@ export const StyledImagesContainer = styled.div`
 export const StyledImage = styled.img`
     width: 800px;
     height: 430px;
+    border-radius: 20px;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -72,9 +73,25 @@ export const DotsWrapper = styled.div`
 
 export const StyledSpan = styled.span`
     & > :active{
-    background-color: black;
+    background-color: white;
     border-radius: 100%;
     height: 20px;
     }
+    background-color: black;
+    border-radius: 100%;
+    height: 20px;
+`;
 
+export const StyledVerticalButton = styled.div`
+    & button {
+        border: none;
+        background: none;
+        padding: 0px;
+        cursor: pointer;
+    }
+`;
+
+export const StyledVerticalArrowUp = styled(FaChevronUp)`
+`;
+export const StyledVerticalArrowDown = styled(FaChevronDown)`
 `;

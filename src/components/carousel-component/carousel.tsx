@@ -1,11 +1,13 @@
-import { FC, memo, useState, useCallback } from 'react';
+import { FC, memo, useState, useCallback, useEffect } from 'react';
 import { CarouselWrapper, CarouselImageWrapper } from './styles';
 import { CarouselImages } from './carousel-images';
 import { SliderData } from './slider-data';
 import { ArrowButtons } from './arrow-buttons';
 
 interface ICarouselProps {
-    /**. default value false */
+    /*
+    * loop default value false 
+    */
     loop?: boolean;
     /**
      * default value false
@@ -20,18 +22,27 @@ interface ICarouselProps {
      */
     orientation?: 'horizontal' | 'vertical';
     /**
-     * default value 2
+     * default 
      */
-    selectedId?: number;
-
+    controlled?: boolean;
+    /**
+     * default is left
+     */
+    verticalIndicatorPosition?: 'left' | 'right';
+    /**
+     * default value is image
+     */
+    multiMedia?: 'image' | 'text' | 'vedio';
 }
 
 export const Carousel: FC = memo(({
+    multiMedia = 'image',
     autoplay = false,
     loop = false,
     nevigationType = 'arrow',
-    orientation = 'horizontal',
-    selectedId = 2,
+    orientation = 'vertical',
+    verticalIndicatorPosition = 'left',
+    controlled = false,
 }: ICarouselProps) => {
 
     const [currentImg, setCurrnetImg] = useState<number>(0);
@@ -50,13 +61,15 @@ export const Carousel: FC = memo(({
         setCurrnetImg(index);
     }, []);
 
-
-    const AutoPlaySlide = useCallback(() => {
-
+    useEffect(() => {
         if (autoplay) {
-            setInterval(() => nextSlide(), 3000)
+            const time = setInterval(nextSlide, 3000);
+            console.log(currentImg);
+            currentImg === (dataLength - 1) && clearInterval(time);
         }
-    }, [autoplay, nextSlide])
+    }, [autoplay, currentImg, dataLength, nextSlide]);
+
+
 
     return (
         <CarouselWrapper>
@@ -65,15 +78,17 @@ export const Carousel: FC = memo(({
                     <ArrowButtons nextSlide={nextSlide}
                         prevSlide={prevSlide}
                         loop={loop}
-                        orientation={orientation} />
+                        orientation={orientation}
+                        verticalIndicatorPosition={verticalIndicatorPosition}
+                    />
                     : null
             }
             <CarouselImageWrapper>
                 <CarouselImages SliderData={SliderData}
                     currentImg={currentImg}
-                    autoplay={AutoPlaySlide}
                     nevigationType={nevigationType}
-                    dotsSlider={dotsIndicatorSlider} />
+                    dotsSlider={dotsIndicatorSlider}
+                    multiMedia={multiMedia} />
             </CarouselImageWrapper>
         </CarouselWrapper>
     );

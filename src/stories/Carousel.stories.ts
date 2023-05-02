@@ -6,7 +6,11 @@ const meta = {
     component: Carousel,
     tags: ['autodocs'],
     argTypes: {
-        Autoplay: { control: 'boolean' },
+        multiMedia:{
+            options: ['image' , 'vedio', 'text' ],
+            control: { type: 'radio'},
+        },
+        autoplay: { control: 'boolean' },
         loop: { control: 'boolean' },
         nevigationType: {
             options: ['arrow', 'dots'],
@@ -15,6 +19,10 @@ const meta = {
         orientation: {
             options: ['horizontal', 'vertical'],
             control: { type: 'radio' },
+        },
+        verticalIndicatorPosition: {
+            options: ['left', 'right'],
+            control: { type : 'radio'},
         },
         backgroundColor: { control: 'color' },
         selectedId: { control: 'number'},
@@ -26,8 +34,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Autoplay: Story = {
     args: {
-        Autoplay: false,
+        autoplay: false,
         loop: true,
+        multiMedia: 'image',
         TimeRanges: 3000,
         nevigationType: 'arrow',
         orientation: 'horizontal',
@@ -37,6 +46,7 @@ export const Autoplay: Story = {
 export const Loop: Story = {
     args: {
         loop: true,
+        multiMedia: 'image',
         nevigationType: 'dots',
         orientation: 'horizontal',
     }
@@ -45,18 +55,28 @@ export const Loop: Story = {
 export const Dots: Story = {
     args: {
         nevigationType: 'dots',
+        multiMedia: 'image',
         orientation: 'horizontal',
     }
 }
 
 export const WithControlledMode: Story = {
     args: {
-        selectedId: 2
+        controlled: 2,
+        multiMedia: 'image',
     }
 }
 
 export const WithDefaultSelection: Story = {
     args: {
-        defaultSelectedId: 2
+        defaultSelectedId: 2,
+        multiMedia: 'image',
+    }
+}
+
+export const WithIndicatorPosition: Story = {
+    args: {
+        verticalIndicatorPosition: 'left',
+        multiMedia: 'image',
     }
 }

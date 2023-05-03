@@ -3,53 +3,7 @@ import { CarouselWrapper, CarouselImageWrapper } from './styles';
 import { CarouselMedia } from './carousel-media';
 import { ArrowButtons } from './arrow-buttons';
 import { SliderData, VedioSliderData, SliderText } from './slider-data';
-
-interface ICarouselProps {
-    /*
-    * loop default value false 
-    */
-    loop?: boolean;
-    /**
-     * default value false
-     */
-    autoplay?: boolean;
-    /**
-     * default time 3000
-     */
-    timeRange?: number;
-    /**
-     * default value arrow
-     */
-    nevigationType?: 'arrow' | 'dots';
-    /**
-     * default value horizontal
-     */
-    orientation?: 'horizontal' | 'vertical';
-    /**
-     * default false
-     */
-    controlled?: boolean;
-    /**
-     * default 2
-     */
-    selectedId?: number;
-    /**
-     * default is left
-     */
-    verticalIndicatorPosition?: 'left' | 'right';
-    /**
-     * default value is image
-     */
-    multiMedia?: 'image' | 'text' | 'vedio';
-    /**
-     * default value false
-     */
-    defaultSelection?: boolean;
-    /**
-     * default value false
-     */
-    StartsFromSecondSlide?:boolean;
-}
+import { ICarouselProps } from './types';
 
 export const Carousel: FC = memo(({
     multiMedia = 'image',
@@ -72,7 +26,7 @@ export const Carousel: FC = memo(({
 
     const nextSlide = useCallback(() => {
         setCurrentMedia(currentMedia === dataLength ? loop ? 1 : currentMedia : currentMedia + 1);
-        setDefualtMedia(defaultMedia === dataLength ? defaultMedia : defaultMedia + 1 );
+        setDefualtMedia(defaultMedia === dataLength ? defaultMedia : defaultMedia + 1);
     }, [currentMedia, dataLength, defaultMedia, loop])
 
     const prevSlide = useCallback(() => {
@@ -85,7 +39,7 @@ export const Carousel: FC = memo(({
     }, []);
 
     useEffect(() => {
-        let interval: any = null;
+        let interval: NodeJS.Timeout;
         if (autoplay) {
             interval = setInterval(nextSlide, timeRange);
         }
@@ -104,7 +58,7 @@ export const Carousel: FC = memo(({
                     />
                     : null
             }
-            <CarouselImageWrapper className= {multiMedia === 'text' ? 'text' : 'media'}>
+            <CarouselImageWrapper className={multiMedia === 'text' ? 'text' : 'media'}>
                 <CarouselMedia
                     SliderData={multiMedia === 'image' ? SliderData : multiMedia === 'text' ? SliderText : VedioSliderData}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}

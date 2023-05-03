@@ -2,16 +2,9 @@ import { memo } from 'react';
 import {
     ButtonsWrapper, StyledLeftArrow, StyledRightArrow,
     StyledVerticalButton
-} from "./styles";
+} from './styles';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-
-interface IArrowButtonProps {
-    loop: boolean;
-    nextSlide: () => void;
-    prevSlide: () => void;
-    orientation: string;
-    verticalIndicatorPosition: string;
-}
+import { IArrowButtonProps } from './types';
 
 export const ArrowButtons = memo((props: IArrowButtonProps) => {
     const { nextSlide, prevSlide, orientation, verticalIndicatorPosition } = props;

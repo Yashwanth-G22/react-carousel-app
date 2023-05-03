@@ -6,11 +6,10 @@ import {
         DotsWrapper, StyledTextTag, 
         StyledMutliMediaContainer
 } from './styles';
-import './style.css';
 
 interface IMediaProps {
     SliderData: ISlideImages[];
-    currentMedia: number;
+    currentMedia: number ;
     nevigationType: string;
     dotsSlider: (index: number) => void;
     multiMedia: string;

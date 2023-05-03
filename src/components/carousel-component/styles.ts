@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { FaAngleRight, FaAngleLeft, FaChevronUp, FaChevronDown } from 'react-icons/fa';
-
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 export const CarouselWrapper = styled.div`
     display: flex;
@@ -14,8 +13,19 @@ export const CarouselImageWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: inherit;
+    &.media{
+        height: inherit;
+    }
+    &.text{
+        height: unset;
+    }
+`;
+
+export const ButtonsWrapper = styled.div`
     height: 100%;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
 `;
 
 export const StyledRightArrow = styled(FaAngleRight)`
@@ -23,7 +33,7 @@ export const StyledRightArrow = styled(FaAngleRight)`
     top: 45%;
     right: 42px;
     font-size: 4rem;
-    color: gray;
+    color: #ebe8e8;
     cursor: pointer;
 `;
 
@@ -32,27 +42,49 @@ export const StyledLeftArrow = styled(FaAngleLeft)`
     top: 45%;
     left: 52px;
     font-size: 4rem;
-    color: gray;
+    z-index: 10;
+    color: #ebe8e8;
+    cursor: pointer; 
+`;
+
+export const StyledVerticalButton = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 45%;
+    font-size: 3rem;
     cursor: pointer;
-    
+    color: #ebe8e8;
+    & button {
+        border: none;
+        background: none;
+        padding: 0px;
+        cursor: pointer;
+    }
+    &.leftIndicator {
+    left: 40px;
+    }
+    &.rightIndicator {
+    right: 40px;
+    }
 `;
 
 export const StyledMutliMediaContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: inherit;
+        height: inherit;
 `;
 
 export const StyledImage = styled.img`
-    width: 800px;
-    height: 430px;
+    width: inherit;
+    height: inherit;
+    overflow: hidden;
     border-radius: 20px;
-`;
-
-export const ButtonsWrapper = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: row;
+    opacity: 1;
+    transition: 2s ease 1s;
+    animation: 1s ease 0s 1 normal none running ;
 `;
 
 export const DotIndication = styled.div`
@@ -76,6 +108,8 @@ export const CarouselDotsImageWrapper = styled.div`
     display: flex;
     justify-content: center;
     gap: 5px;
+    width: inherit;
+    height: inherit;
     &.horizontal {
        flex-direction: column;
     }
@@ -106,19 +140,6 @@ export const StyledSpan = styled.span`
     border-radius: 100%;
 
 `;
-
-export const StyledVerticalButton = styled.div`
-    & button {
-        border: none;
-        background: none;
-        padding: 0px;
-        cursor: pointer;
-    }
-`;
-
-export const StyledVerticalArrowUp = styled(FaChevronUp)``;
-
-export const StyledVerticalArrowDown = styled(FaChevronDown)``;
 
 export const StyledTextTag = styled.h1`
     display: block;

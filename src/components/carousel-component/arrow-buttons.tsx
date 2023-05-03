@@ -1,7 +1,9 @@
 import { memo } from 'react';
-import { ButtonsWrapper, StyledLeftArrow, StyledRightArrow, 
-    StyledVerticalArrowDown, StyledVerticalArrowUp, 
-    StyledVerticalButton } from "./styles";
+import {
+    ButtonsWrapper, StyledLeftArrow, StyledRightArrow,
+    StyledVerticalButton
+} from "./styles";
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 interface IArrowButtonProps {
     loop: boolean;
@@ -21,8 +23,8 @@ export const ArrowButtons = memo((props: IArrowButtonProps) => {
                     <StyledRightArrow onClick={nextSlide} />
                 </ButtonsWrapper>
                 : <StyledVerticalButton className={verticalIndicatorPosition === 'right' ? 'rightIndicator' : 'leftIndicator'}>
-                    <StyledVerticalArrowUp onClick={prevSlide} />
-                    <StyledVerticalArrowDown onClick={nextSlide} />
+                    <FaChevronUp onClick={prevSlide} />
+                    <FaChevronDown onClick={nextSlide} />
                 </StyledVerticalButton>
         }
     </>

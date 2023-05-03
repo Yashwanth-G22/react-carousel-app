@@ -26,7 +26,8 @@ const meta = {
         },
         backgroundColor: { control: 'color' },
         selectedId: { control: 'number' },
-        defautlSelectionId: { control: 'boolean' },
+        defaultSelection: { control: 'boolean' },
+        StartsFromSecondSlide: { control: 'boolean' },
     },
 } satisfies Meta<typeof Carousel>;
 
@@ -38,7 +39,7 @@ export const Autoplay: Story = {
         autoplay: false,
         loop: true,
         multiMedia: 'image',
-        TimeRanges: 3000,
+        timeRanges: 3000,
         nevigationType: 'arrow',
         orientation: 'horizontal',
     }
@@ -62,7 +63,7 @@ export const Loop: Story = {
 
 export const StartsFromSecondSlide: Story = {
     args: {
-        selectedId: 2,
+        StartsFromSecondSlide: true,
         multiMedia: 'image',
     }
 }
@@ -92,7 +93,8 @@ export const WithArrowIndicator: Story = {
 
 export const WithDefaultSelection: Story = {
     args: {
-        defaultSelectedId: 1,
+        defaultSelection: true,
+        selectedId: 2,
         multiMedia: 'image',
     }
 }

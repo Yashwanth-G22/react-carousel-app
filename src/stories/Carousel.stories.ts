@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Carousel } from "../components/carousel-component/carousel";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Carousel } from '../components/carousel-component/carousel';
 
 const meta = {
-    title: 'Example/Carousel',
+    title: 'Carousel',
     component: Carousel,
     tags: ['autodocs'],
     argTypes: {
-        multiMedia:{
-            options: ['image' , 'vedio', 'text' ],
-            control: { type: 'radio'},
+        multiMedia: {
+            options: ['image', 'vedio', 'text'],
+            control: { type: 'radio' },
         },
         autoplay: { control: 'boolean' },
         loop: { control: 'boolean' },
@@ -22,10 +22,11 @@ const meta = {
         },
         verticalIndicatorPosition: {
             options: ['left', 'right'],
-            control: { type : 'radio'},
+            control: { type: 'radio' },
         },
         backgroundColor: { control: 'color' },
-        selectedId: { control: 'number'},
+        selectedId: { control: 'number' },
+        defautlSelectionId: { control: 'boolean' },
     },
 } satisfies Meta<typeof Carousel>;
 
@@ -46,7 +47,7 @@ export const Autoplay: Story = {
 export const HorizontalCarousel: Story = {
     args: {
         orientation: 'horizontal',
-        loop:false,
+        loop: false,
     }
 }
 
@@ -54,28 +55,37 @@ export const Loop: Story = {
     args: {
         loop: true,
         multiMedia: 'image',
-        nevigationType: 'dots',
+        nevigationType: 'arrow',
         orientation: 'horizontal',
+    }
+}
+
+export const StartsFromSecondSlide: Story = {
+    args: {
+        selectedId: 2,
+        multiMedia: 'image',
     }
 }
 
 export const VerticalCarousel: Story = {
     args: {
-        orientation:'vertical',
-        loop:true,
-    }
-}
-export const Dots: Story = {
-    args: {
-        nevigationType: 'dots',
-        multiMedia: 'image',
-        orientation: 'horizontal',
+        orientation: 'vertical',
+        verticalIndicatorPosition: 'right',
+        loop: true,
+
     }
 }
 
 export const WithControlledMode: Story = {
     args: {
         controlled: 2,
+        multiMedia: 'image',
+    }
+}
+
+export const WithArrowIndicator: Story = {
+    args: {
+        orientation: 'arrow',
         multiMedia: 'image',
     }
 }
@@ -87,7 +97,15 @@ export const WithDefaultSelection: Story = {
     }
 }
 
-export const WithIndicatorPosition: Story = {
+export const WithDotIndicator: Story = {
+    args: {
+        nevigationType: 'dots',
+        multiMedia: 'image',
+        orientation: 'horizontal',
+    }
+}
+
+export const WithIndicatorPositionSetToLeft: Story = {
     args: {
         verticalIndicatorPosition: 'left',
         orientation: 'vertical',

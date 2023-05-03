@@ -19,8 +19,8 @@ export const VedioSliderData : ISlideImages[]= [
 ];
 
 export const SliderText = [
-    {data: 'yash'},
-    {data: 'yashu'},
-    {data: 'rocky'},
-    {data: 'king'},
+    {data: 'Hi'},
+    {data: 'Hello'},
+    {data: 'Good'},
+    {data: 'Morning'},
 ]

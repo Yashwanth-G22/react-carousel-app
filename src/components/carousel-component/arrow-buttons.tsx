@@ -1,5 +1,7 @@
-import { memo } from "react";
-import { ButtonsWrapper, StyledLeftArrow, StyledRightArrow, StyledVerticalArrowDown, StyledVerticalArrowUp, StyledVerticalButton } from "./styles";
+import { memo } from 'react';
+import { ButtonsWrapper, StyledLeftArrow, StyledRightArrow, 
+    StyledVerticalArrowDown, StyledVerticalArrowUp, 
+    StyledVerticalButton } from "./styles";
 
 interface IArrowButtonProps {
     loop: boolean;
@@ -10,22 +12,19 @@ interface IArrowButtonProps {
 }
 
 export const ArrowButtons = memo((props: IArrowButtonProps) => {
-    const { nextSlide, prevSlide, orientation,verticalIndicatorPosition } = props;
+    const { nextSlide, prevSlide, orientation, verticalIndicatorPosition } = props;
     return (<>
         {
             orientation === 'horizontal' ?
-            <ButtonsWrapper>
-                <StyledLeftArrow onClick={prevSlide}  />
-                <StyledRightArrow onClick={nextSlide} />
-            </ButtonsWrapper>
-            : <StyledVerticalButton className={verticalIndicatorPosition === 'right' ? 'rightIndicator' : 'leftIndicator'}>
-                <StyledVerticalArrowUp onClick={prevSlide} />
-                <StyledVerticalArrowDown onClick={nextSlide}/>
-            </StyledVerticalButton>
+                <ButtonsWrapper>
+                    <StyledLeftArrow onClick={prevSlide} />
+                    <StyledRightArrow onClick={nextSlide} />
+                </ButtonsWrapper>
+                : <StyledVerticalButton className={verticalIndicatorPosition === 'right' ? 'rightIndicator' : 'leftIndicator'}>
+                    <StyledVerticalArrowUp onClick={prevSlide} />
+                    <StyledVerticalArrowDown onClick={nextSlide} />
+                </StyledVerticalButton>
         }
-         </>
-
-)
-})
-
-{/* <i class="fa-solid fa-chevron-right" style="color: #b3c0d6;"></i> */ }
+    </>
+    );
+});

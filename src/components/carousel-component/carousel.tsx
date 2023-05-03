@@ -1,8 +1,8 @@
 import { FC, memo, useState, useCallback, useEffect } from 'react';
 import { CarouselWrapper, CarouselImageWrapper } from './styles';
-import { CarouselImages } from './carousel-images';
-import { SliderData, VedioSliderData, SliderText } from './slider-data';
+import { CarouselMedia } from './carousel-media';
 import { ArrowButtons } from './arrow-buttons';
+import { SliderData, VedioSliderData, SliderText } from './slider-data';
 
 interface ICarouselProps {
     /*
@@ -40,7 +40,7 @@ interface ICarouselProps {
 }
 
 export const Carousel: FC = memo(({
-    multiMedia = 'vedio',
+    multiMedia = 'image',
     autoplay = false,
     loop = false,
     nevigationType = 'arrow',
@@ -50,29 +50,29 @@ export const Carousel: FC = memo(({
     selectedId = 2,
 }: ICarouselProps) => {
 
-    const [currentImg, setCurrnetImg] = useState<number>(0);
-    const dataLength = (multiMedia === 'image' ? SliderData :multiMedia === 'text' ? SliderText : VedioSliderData).length;
-
+    const [currentMedia, setCurrentMedia] = useState<number>(1);
+    const dataLength = (multiMedia === 'image' ? SliderData
+        : multiMedia === 'text' ? SliderText : VedioSliderData).length;
 
     const nextSlide = useCallback(() => {
-        setCurrnetImg(currentImg === dataLength - 1 ? loop ? 0 : currentImg : currentImg + 1);
-    }, [currentImg, dataLength, loop])
+        setCurrentMedia(currentMedia === dataLength ? loop ? 1 : currentMedia : currentMedia + 1);
+    }, [currentMedia, dataLength, loop])
 
     const prevSlide = useCallback(() => {
-        setCurrnetImg(currentImg === 0 ? loop ? dataLength - 1 : currentImg : currentImg - 1);
-    }, [currentImg, dataLength, loop])
+        setCurrentMedia(currentMedia === 1 ? loop ? dataLength : currentMedia : currentMedia - 1);
+    }, [currentMedia, dataLength, loop])
 
     const dotsIndicatorSlider = useCallback((index: number) => {
-        setCurrnetImg(index);
+        setCurrentMedia(index + 1);
     }, []);
 
     useEffect(() => {
+        let interval: any = null;
         if (autoplay) {
-            const time = setInterval(nextSlide, 3000);
-            console.log(currentImg);
-            currentImg === (dataLength - 1) && clearInterval(time);
+             interval = setInterval(nextSlide, 3000);
         }
-    }, [autoplay, currentImg, dataLength, nextSlide]);
+        return () => clearInterval(interval);
+    }, [autoplay, nextSlide]);
 
     return (
         <CarouselWrapper>
@@ -87,14 +87,15 @@ export const Carousel: FC = memo(({
                     : null
             }
             <CarouselImageWrapper>
-                <CarouselImages 
-                    SliderData={ multiMedia === 'image' ? SliderData :multiMedia === 'text' ? SliderText : VedioSliderData}
-                    currentImg={ controlled ? selectedId : currentImg}
+                <CarouselMedia
+                    SliderData={multiMedia === 'image' ? SliderData : multiMedia === 'text' ? SliderText : VedioSliderData}
+                    currentMedia={controlled ? selectedId : currentMedia}
                     nevigationType={nevigationType}
                     dotsSlider={dotsIndicatorSlider}
-                    multiMedia={multiMedia} />
+                    multiMedia={multiMedia}
+                    orientation={orientation} 
+                    verticalIndicatorPosition={verticalIndicatorPosition}/>
             </CarouselImageWrapper>
         </CarouselWrapper>
     );
 });
- 

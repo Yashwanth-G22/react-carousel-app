@@ -102,6 +102,9 @@ export const DotIndication = styled.div`
     &>.rightDots {
         flex-direction: row-reverse;
     }
+    &:hover {
+        background-color: lightgray;
+    }
 `;
 
 export const CarouselDotsImageWrapper = styled.div`

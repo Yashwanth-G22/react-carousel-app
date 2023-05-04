@@ -1,4 +1,4 @@
-import './App.css'
+import './app.css';
 import { Carousel } from './components/carousel-component/carousel'
 
 function App() {

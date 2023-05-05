@@ -24,8 +24,6 @@ const meta = {
             options: ['left', 'right'],
             control: { type: 'radio' },
         },
-        backgroundColor: { control: 'color' },
-        selectedId: { control: 'number' },
         defaultSelection: { control: 'boolean' },
         StartsFromSecondSlide: { control: 'boolean' },
     },
@@ -79,7 +77,7 @@ export const VerticalCarousel: Story = {
 
 export const WithControlledMode: Story = {
     args: {
-        controlled: 2,
+        controlled: true,
         multiMedia: 'image',
     }
 }
@@ -112,5 +110,11 @@ export const WithIndicatorPositionSetToLeft: Story = {
         verticalIndicatorPosition: 'left',
         orientation: 'vertical',
         multiMedia: 'image',
+    }
+}
+
+export const MaintainWithAspectRatioForImage: Story = {
+    args: {
+        aspectRatioForImage: true,
     }
 }

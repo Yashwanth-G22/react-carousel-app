@@ -1,5 +1,5 @@
 export interface ISlideImages {
-    data: string;
+    data: string
 }
 
 export interface ICarouselProps {
@@ -47,6 +47,10 @@ export interface ICarouselProps {
      * default value false
      */
     StartsFromSecondSlide?: boolean;
+    /**
+     * default Value is false
+     */
+    aspectRatioForImage?: boolean
 }
 
 export interface IMediaProps {
@@ -57,6 +61,7 @@ export interface IMediaProps {
     multiMedia: string;
     orientation: string;
     verticalIndicatorPosition: string;
+    aspectRatioForImage: boolean
 }
 
 export interface IArrowButtonProps {
@@ -65,4 +70,12 @@ export interface IArrowButtonProps {
     prevSlide: () => void;
     orientation: string;
     verticalIndicatorPosition: string;
+    currentMedia: number;
+    dataLenght: number;
+    controlled: boolean
+}
+
+export interface IDotContainerProps {
+    dotsSlider: (index: number) => void;
+    currentMedia: number
 }

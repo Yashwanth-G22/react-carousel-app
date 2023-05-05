@@ -7,15 +7,18 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { IArrowButtonProps } from './types';
 
 export const ArrowButtons = memo((props: IArrowButtonProps) => {
-    const { nextSlide, prevSlide, orientation, verticalIndicatorPosition } = props;
+    const { nextSlide, prevSlide, orientation, verticalIndicatorPosition, currentMedia, dataLenght, loop, controlled } = props;
     return (<>
         {
             orientation === 'horizontal' ?
-                <ButtonsWrapper>
+                <ButtonsWrapper currentMedia={currentMedia} dataLength={dataLenght}
+                    loop={loop} controlled={controlled}>
                     <StyledLeftArrow onClick={prevSlide} />
                     <StyledRightArrow onClick={nextSlide} />
                 </ButtonsWrapper>
-                : <StyledVerticalButton className={verticalIndicatorPosition === 'right' ? 'rightIndicator' : 'leftIndicator'}>
+                : <StyledVerticalButton verticalIndicatorPosition={verticalIndicatorPosition}
+                    currentMedia={currentMedia} dataLength={dataLenght} loop={loop}
+                    controlled= {controlled}>
                     <FaChevronUp onClick={prevSlide} />
                     <FaChevronDown onClick={nextSlide} />
                 </StyledVerticalButton>

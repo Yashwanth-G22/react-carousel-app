@@ -1,5 +1,42 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
+
+export const VerticalArrowLeft = css`
+    left: 40px;
+`;
+
+export const VerticalArrowRignt = css`
+    right: 40px;
+`;
+
+export const HorizontalArrowIndication = css`
+    opacity: 0.5;
+    cursor: not-allowed;
+`;
+
+export const HorizontalArrow = css`
+    opacity: 1;
+    cursor: pointer;
+`;
+
+export const MaintainWithAspectRatioForImage = css`
+    height: 100vh;
+    border-radius: 0px;
+    border: none;
+`;
+
+export const DisableRight = css<{ currentMedia: number, dataLength: number }>`
+    ${({ currentMedia, dataLength }) => (currentMedia === dataLength) ? HorizontalArrowIndication : HorizontalArrow};
+`;
+
+export const DisableLeft = css<{ currentMedia: number }>`
+    ${({ currentMedia }) => (currentMedia === 1) ? HorizontalArrowIndication : HorizontalArrow};
+`;
+
+export const ControlledDisables = css`
+    opacity: 0.5;
+    cursor: not-allowed;
+`;
 
 export const CarouselWrapper = styled.div`
     display: flex;
@@ -8,24 +45,25 @@ export const CarouselWrapper = styled.div`
     justify-content: center;
 `;
 
-export const CarouselImageWrapper = styled.div`
+export const CarouselDataWrapper = styled.div<{ text: boolean }>`
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: inherit;
-    &.media{
-        height: inherit;
-    }
-    &.text{
-        height: unset;
-    }
+    height: inherit;
 `;
 
-export const ButtonsWrapper = styled.div`
+export const ButtonsWrapper = styled.div<{ currentMedia: number, dataLength: number, loop: boolean, controlled: boolean }>`
     height: 100%;
     display: flex;
     flex-direction: row;
+    &>:first-child{
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableLeft}
+    }
+    &>:nth-child(2){
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableRight}
+    }
 `;
 
 export const StyledRightArrow = styled(FaAngleRight)`
@@ -33,8 +71,8 @@ export const StyledRightArrow = styled(FaAngleRight)`
     top: 45%;
     right: 42px;
     font-size: 4rem;
+    z-index: 10;
     color: #ebe8e8;
-    cursor: pointer;
 `;
 
 export const StyledLeftArrow = styled(FaAngleLeft)`
@@ -44,10 +82,9 @@ export const StyledLeftArrow = styled(FaAngleLeft)`
     font-size: 4rem;
     z-index: 10;
     color: #ebe8e8;
-    cursor: pointer; 
 `;
 
-export const StyledVerticalButton = styled.div`
+export const StyledVerticalButton = styled.div<{ verticalIndicatorPosition: string, currentMedia: number, dataLength: number, loop: boolean, controlled: boolean }>`
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -55,26 +92,24 @@ export const StyledVerticalButton = styled.div`
     font-size: 3rem;
     cursor: pointer;
     color: #ebe8e8;
-    & button {
-        border: none;
-        background: none;
-        padding: 0px;
-        cursor: pointer;
+    ${({ verticalIndicatorPosition }) => verticalIndicatorPosition === 'right' ? VerticalArrowRignt : VerticalArrowLeft};
+    &>:first-child{
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableLeft}
     }
-    &.leftIndicator {
-    left: 40px;
-    }
-    &.rightIndicator {
-    right: 40px;
+    &>:nth-child(2){
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableRight}
     }
 `;
 
-export const StyledMutliMediaContainer = styled.div`
+export const StyledMutliMediaContainer = styled.div<{ aspectRatioForImage: boolean }>`
         display: flex;
         flex-direction: column;
         align-items: center;
         width: inherit;
         height: inherit;
+        &>:first-child{
+        ${({ aspectRatioForImage }) => aspectRatioForImage ? MaintainWithAspectRatioForImage : 'unset'};
+        }
 `;
 
 export const StyledImage = styled.img`
@@ -82,12 +117,9 @@ export const StyledImage = styled.img`
     height: inherit;
     overflow: hidden;
     border-radius: 20px;
-    opacity: 1;
-    transition: 2s ease 1s;
-    animation: 1s ease 0s 1 normal none running ;
 `;
 
-export const DotIndication = styled.div`
+export const DotIndication = styled.div<{ currentMedia: number, index: number }>`
     display: block;
     border: 2px solid black;
     font-size: 3rem;
@@ -96,41 +128,24 @@ export const DotIndication = styled.div`
     width: 15px;
     border-radius: 100%;
     cursor: pointer;
-    &:active {
-        background-color: black;
-    }
-    &>.rightDots {
-        flex-direction: row-reverse;
-    }
-    &:hover {
-        background-color: lightgray;
-    }
+    background-color: ${({ currentMedia, index }) => (currentMedia === index + 1) ? 'black' : 'white'};
 `;
 
-export const CarouselDotsImageWrapper = styled.div`
+export const CarouselMultiMediaWrapper = styled.div<{ orientation: string, side: string }>`
     display: flex;
     justify-content: center;
     gap: 5px;
     width: inherit;
     height: inherit;
-    &.horizontal {
-       flex-direction: column;
-    }
-    &.vertical {
-        flex-direction: row;
-    }
+    transition: 2s linear 1s;
+    flex-direction: ${({ orientation, side }) => (orientation === 'horizontal' ? 'column' : (side === 'left') ? 'row-reverse' : 'row')};
 `;
 
-export const DotsWrapper = styled.div`
+export const DotsWrapper = styled.div<{ orientation: string }>`
     display: flex;
     gap: 3px;
     justify-content: center; 
-    &.horizontal-dots {
-         flex-direction: row;
-    }
-     &.vertical-dots {
-        flex-direction: column;
-    } 
+    flex-direction: ${({ orientation }) => (orientation === 'horizontal' ? 'row' : 'column')} ;
 `;
 
 export const StyledSpan = styled.span`
@@ -148,4 +163,5 @@ export const StyledTextTag = styled.h1`
     display: block;
     justify-content: center;
     margin-top: 20px;
+    width: unset;
 `;

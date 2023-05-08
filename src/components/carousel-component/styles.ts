@@ -51,7 +51,7 @@ export const CarouselDataWrapper = styled.div<{ text: boolean }>`
     justify-content: center;
     align-items: center;
     width: inherit;
-    height: inherit;
+    height: ${({text}) => text ? 'unset' : 'inherit'};
 `;
 
 export const ButtonsWrapper = styled.div<{ currentMedia: number, dataLength: number, loop: boolean, controlled: boolean }>`
@@ -108,7 +108,8 @@ export const StyledMutliMediaContainer = styled.div<{ aspectRatioForImage: boole
         width: inherit;
         height: inherit;
         &>:first-child{
-        ${({ aspectRatioForImage }) => aspectRatioForImage ? MaintainWithAspectRatioForImage : 'unset'};
+            ${({ aspectRatioForImage }) => aspectRatioForImage ? MaintainWithAspectRatioForImage : 'unset'};
+            transition: all 3s ease 2s;
         }
 `;
 
@@ -137,7 +138,6 @@ export const CarouselMultiMediaWrapper = styled.div<{ orientation: string, side:
     gap: 5px;
     width: inherit;
     height: inherit;
-    transition: 2s linear 1s;
     flex-direction: ${({ orientation, side }) => (orientation === 'horizontal' ? 'column' : (side === 'left') ? 'row-reverse' : 'row')};
 `;
 

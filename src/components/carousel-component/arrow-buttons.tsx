@@ -18,7 +18,7 @@ export const ArrowButtons = memo((props: IArrowButtonProps) => {
                 </ButtonsWrapper>
                 : <StyledVerticalButton verticalIndicatorPosition={verticalIndicatorPosition}
                     currentMedia={currentMedia} dataLength={dataLenght} loop={loop}
-                    controlled= {controlled}>
+                    controlled={controlled}>
                     <FaChevronUp onClick={prevSlide} />
                     <FaChevronDown onClick={nextSlide} />
                 </StyledVerticalButton>

@@ -57,11 +57,12 @@ export interface IMediaProps {
     SliderData: ISlideImages[];
     currentMedia: number;
     nevigationType: string;
-    dotsSlider: (index: number) => void;
+    dotCallbackFunction: (index: number) => void;
     multiMedia: string;
     orientation: string;
     verticalIndicatorPosition: string;
     aspectRatioForImage: boolean
+    styledTextAlign: (value: boolean) => void
 }
 
 export interface IArrowButtonProps {

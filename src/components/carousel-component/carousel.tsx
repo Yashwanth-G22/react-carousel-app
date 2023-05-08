@@ -2,7 +2,7 @@ import { FC, memo, useState, useCallback, useEffect } from 'react';
 import { CarouselWrapper, CarouselDataWrapper } from './styles';
 import { CarouselMedia } from './carousel-media';
 import { ArrowButtons } from './arrow-buttons';
-import { AllMixMedia, SliderData } from './slider-data';
+import { AllMixMedia } from './slider-data';
 import { ICarouselProps } from './types';
 
 export const Carousel: FC = memo(({
@@ -22,7 +22,8 @@ export const Carousel: FC = memo(({
 
     const [currentMedia, setCurrentMedia] = useState<number>(1);
     const [defaultMedia, setDefualtMedia] = useState<number>(2);
-    const dataLength = SliderData.length;
+    const [styleText, setStyleText ] = useState<boolean>(false)
+    const dataLength = AllMixMedia.length;
 
     const nextSlide = useCallback(() => {
         setCurrentMedia(currentMedia === dataLength ? loop ? 1 : currentMedia : currentMedia + 1);
@@ -38,6 +39,10 @@ export const Carousel: FC = memo(({
         setCurrentMedia(index + 1);
     };
 
+    const styledTextCallback = (value: boolean)=> {
+        setStyleText(value);
+    };
+    
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (autoplay) {
@@ -61,16 +66,17 @@ export const Carousel: FC = memo(({
                     />
                     : null
             }
-            <CarouselDataWrapper text= {true}>
+            <CarouselDataWrapper text={styleText}>
                 <CarouselMedia
-                    SliderData= {SliderData}
+                    SliderData={AllMixMedia}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}
                     nevigationType={nevigationType}
-                    dotsSlider={dotsIndicatorSlider}
+                    dotCallbackFunction={dotsIndicatorSlider}
                     multiMedia={multiMedia}
                     orientation={orientation}
                     verticalIndicatorPosition={verticalIndicatorPosition}
-                    aspectRatioForImage={aspectRatioForImage} />
+                    aspectRatioForImage={aspectRatioForImage} 
+                    styledTextAlign={styledTextCallback}/>
             </CarouselDataWrapper>
         </CarouselWrapper>
     );

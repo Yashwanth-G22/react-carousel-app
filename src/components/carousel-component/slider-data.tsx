@@ -24,11 +24,11 @@ export const SliderText = [
 ]
 
 export const AllMixMedia = [
-    { data: 'hello'},
+    { data: 'hello' },
     { data: '../images/pexels-beyzaa-yurtkuran-16668378.jpg' },
     { data: '../images/sunset-silhouettes-trees-mountains-generative-ai.jpg' },
     { data: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' },
     { data: '../images/statue-buddha-with-golden-halo.jpg' },
-    { data: 'Working Good'},
+    { data: 'Working Good' },
     { data: 'http://techslides.com/demos/sample-videos/small.mp4' }
 ]

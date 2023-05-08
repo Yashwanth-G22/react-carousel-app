@@ -54,11 +54,10 @@ export interface ICarouselProps {
 }
 
 export interface IMediaProps {
-    SliderData: ISlideImages[];
+    sliderData: ISlideImages[];
     currentMedia: number;
     nevigationType: string;
     dotCallbackFunction: (index: number) => void;
-    multiMedia: string;
     orientation: string;
     verticalIndicatorPosition: string;
     aspectRatioForImage: boolean

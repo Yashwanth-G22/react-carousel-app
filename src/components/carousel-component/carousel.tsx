@@ -6,7 +6,6 @@ import { AllMixMedia } from './slider-data';
 import { ICarouselProps } from './types';
 
 export const Carousel: FC = memo(({
-    multiMedia = 'image',
     autoplay = false,
     loop = false,
     timeRange = 3000,
@@ -22,7 +21,7 @@ export const Carousel: FC = memo(({
 
     const [currentMedia, setCurrentMedia] = useState<number>(1);
     const [defaultMedia, setDefualtMedia] = useState<number>(2);
-    const [styleText, setStyleText ] = useState<boolean>(false)
+    const [alignText, setAlignText] = useState<boolean>(false)
     const dataLength = AllMixMedia.length;
 
     const nextSlide = useCallback(() => {
@@ -39,10 +38,10 @@ export const Carousel: FC = memo(({
         setCurrentMedia(index + 1);
     };
 
-    const styledTextCallback = (value: boolean)=> {
-        setStyleText(value);
+    const alignTextCallback = (value: boolean) => {
+        setAlignText(value);
     };
-    
+
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (autoplay) {
@@ -66,17 +65,16 @@ export const Carousel: FC = memo(({
                     />
                     : null
             }
-            <CarouselDataWrapper text={styleText}>
+            <CarouselDataWrapper text={alignText}>
                 <CarouselMedia
-                    SliderData={AllMixMedia}
+                    sliderData={AllMixMedia}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}
                     nevigationType={nevigationType}
                     dotCallbackFunction={dotsIndicatorSlider}
-                    multiMedia={multiMedia}
                     orientation={orientation}
                     verticalIndicatorPosition={verticalIndicatorPosition}
-                    aspectRatioForImage={aspectRatioForImage} 
-                    styledTextAlign={styledTextCallback}/>
+                    aspectRatioForImage={aspectRatioForImage}
+                    styledTextAlign={alignTextCallback} />
             </CarouselDataWrapper>
         </CarouselWrapper>
     );

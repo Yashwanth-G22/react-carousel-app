@@ -4,44 +4,41 @@ import {
     DotsWrapper, StyledTextTag,
     StyledMutliMediaContainer,
     CarouselMultiMediaWrapper,
-    DotIndication
+    DotIndication, StyledVideo
 } from './styles';
 import { IMediaProps } from './types';
 
-
-
 export const CarouselMedia = memo((props: IMediaProps) => {
 
-    const { SliderData, currentMedia, nevigationType,
+    const { sliderData, currentMedia, nevigationType,
         dotCallbackFunction, orientation, verticalIndicatorPosition,
         aspectRatioForImage, styledTextAlign } = props;
 
     const dotsContainer = useCallback(() => {
-        return SliderData.map(({ data }, index) =>
+        return sliderData.map(({ data }, index) =>
             <DotIndication key={data} onClick={() => dotCallbackFunction(index)}
                 currentMedia={currentMedia} index={index} />
         );
-    }, [SliderData, currentMedia, dotCallbackFunction])
+    }, [sliderData, currentMedia, dotCallbackFunction])
 
     const mediaContainer = useCallback(() => {
-        const checkData = SliderData[currentMedia - 1].data
-        if (checkData.endsWith('.jpg') || checkData.endsWith('.png') || checkData.endsWith('.gif')) {
+        const checkSliderData = sliderData[currentMedia - 1].data
+        if (checkSliderData.endsWith('.jpg') || checkSliderData.endsWith('.png') || checkSliderData.endsWith('.gif')) {
             styledTextAlign(false)
-            return <StyledImage src={checkData} alt='Image' />
+            return <StyledImage key={checkSliderData} src={checkSliderData} alt='Image' />
         }
-        else if (checkData.endsWith('.mp4') || checkData.endsWith('mpv')) {
+        else if (checkSliderData.endsWith('.mp4') || checkSliderData.endsWith('.mpv')) {
             styledTextAlign(false)
-            return <video width={400} height={400} controls autoPlay
-                src={checkData}></video>
+            return <StyledVideo key={checkSliderData} controls autoPlay
+                src={checkSliderData}></StyledVideo>
         }
-        else if ((typeof (checkData) === 'string')) {
+        else if ((typeof (checkSliderData) === 'string')) {
             styledTextAlign(true)
-            return <StyledTextTag>{checkData}</StyledTextTag>
+            return <StyledTextTag key={checkSliderData}>{checkSliderData}</StyledTextTag>
         }
-        else return undefined;
-    }, [SliderData, currentMedia, styledTextAlign])
+    }, [sliderData, currentMedia, styledTextAlign])
 
-    if (SliderData.length <= 0 || !Array.isArray(SliderData)) {
+    if (sliderData.length <= 0 || !Array.isArray(sliderData)) {
         return null;
     }
 

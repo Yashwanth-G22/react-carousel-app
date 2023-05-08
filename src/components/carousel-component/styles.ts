@@ -1,5 +1,17 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
+
+const Fade = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+const animationProperty = css`
+    animation:${Fade} 1s ease ;
+`;
 
 export const VerticalArrowLeft = css`
     left: 40px;
@@ -12,15 +24,20 @@ export const VerticalArrowRignt = css`
 export const HorizontalArrowIndication = css`
     opacity: 0.5;
     cursor: not-allowed;
+    &:hover{
+        color: #c0c8cf;
+    }
 `;
 
 export const HorizontalArrow = css`
     opacity: 1;
     cursor: pointer;
+    &:hover{
+        color: rgba(14, 155, 255, 0.61);
+    }
 `;
 
 export const MaintainWithAspectRatioForImage = css`
-    height: 100vh;
     border-radius: 0px;
     border: none;
 `;
@@ -36,6 +53,7 @@ export const DisableLeft = css<{ currentMedia: number }>`
 export const ControlledDisables = css`
     opacity: 0.5;
     cursor: not-allowed;
+    color: #e4e9ed ;
 `;
 
 export const CarouselWrapper = styled.div`
@@ -51,7 +69,7 @@ export const CarouselDataWrapper = styled.div<{ text: boolean }>`
     justify-content: center;
     align-items: center;
     width: inherit;
-    height: ${({text}) => text ? 'unset' : 'inherit'};
+    height: ${({ text }) => text ? 'unset' : 'inherit'};
 `;
 
 export const ButtonsWrapper = styled.div<{ currentMedia: number, dataLength: number, loop: boolean, controlled: boolean }>`
@@ -73,6 +91,7 @@ export const StyledRightArrow = styled(FaAngleRight)`
     font-size: 4rem;
     z-index: 10;
     color: #ebe8e8;
+    transition: all 3s ease ;
 `;
 
 export const StyledLeftArrow = styled(FaAngleLeft)`
@@ -82,6 +101,7 @@ export const StyledLeftArrow = styled(FaAngleLeft)`
     font-size: 4rem;
     z-index: 10;
     color: #ebe8e8;
+    transition: all 3s ease ;
 `;
 
 export const StyledVerticalButton = styled.div<{ verticalIndicatorPosition: string, currentMedia: number, dataLength: number, loop: boolean, controlled: boolean }>`
@@ -109,7 +129,6 @@ export const StyledMutliMediaContainer = styled.div<{ aspectRatioForImage: boole
         height: inherit;
         &>:first-child{
             ${({ aspectRatioForImage }) => aspectRatioForImage ? MaintainWithAspectRatioForImage : 'unset'};
-            transition: all 3s ease 2s;
         }
 `;
 
@@ -118,6 +137,7 @@ export const StyledImage = styled.img`
     height: inherit;
     overflow: hidden;
     border-radius: 20px;
+    ${animationProperty}
 `;
 
 export const DotIndication = styled.div<{ currentMedia: number, index: number }>`
@@ -162,6 +182,12 @@ export const StyledSpan = styled.span`
 export const StyledTextTag = styled.h1`
     display: block;
     justify-content: center;
-    margin-top: 20px;
     width: unset;
+    ${animationProperty}
+`;
+
+export const StyledVideo = styled.video`
+    width: 500px;
+    height: 500px;
+    ${animationProperty}
 `;

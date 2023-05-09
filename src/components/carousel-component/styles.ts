@@ -14,11 +14,11 @@ const animationProperty = css`
 `;
 
 export const VerticalArrowLeft = css`
-    left: 40px;
+    left: 30px;
 `;
 
 export const VerticalArrowRignt = css`
-    right: 40px;
+    right: 30px;
 `;
 
 export const HorizontalArrowIndication = css`
@@ -56,6 +56,12 @@ export const ControlledDisables = css`
     color: #e4e9ed ;
 `;
 
+export const PositionOfDots = css`
+    position: absolute;
+    top: 99%;
+    left: 42.5%;
+`;
+
 export const CarouselWrapper = styled.div`
     display: flex;
     width: 100%;
@@ -87,7 +93,7 @@ export const ButtonsWrapper = styled.div<{ currentMedia: number, dataLength: num
 export const StyledRightArrow = styled(FaAngleRight)`
     position: absolute;
     top: 45%;
-    right: 42px;
+    right: 32px;
     font-size: 4rem;
     z-index: 10;
     color: #ebe8e8;
@@ -97,7 +103,7 @@ export const StyledRightArrow = styled(FaAngleRight)`
 export const StyledLeftArrow = styled(FaAngleLeft)`
     position: absolute;
     top: 45%;
-    left: 52px;
+    left: 32px;
     font-size: 4rem;
     z-index: 10;
     color: #ebe8e8;
@@ -166,6 +172,7 @@ export const DotsWrapper = styled.div<{ orientation: string }>`
     gap: 3px;
     justify-content: center; 
     flex-direction: ${({ orientation }) => (orientation === 'horizontal' ? 'row' : 'column')} ;
+    ${({orientation})=> orientation === 'horizontal' ? PositionOfDots : 'unset'}
 `;
 
 export const StyledSpan = styled.span`
@@ -187,7 +194,7 @@ export const StyledTextTag = styled.h1`
 `;
 
 export const StyledVideo = styled.video`
-    width: 500px;
-    height: 500px;
+    width: 800px;
+    height: inherit;
     ${animationProperty}
 `;

@@ -8,6 +8,10 @@ import {
 } from './styles';
 import { IMediaProps } from './types';
 
+const imageExtensions = ['.webp', '.svg', '.png', '.pjp', '.pjpeg', '.jfif', '.jpeg', '.jpg', '.gif', '.avif', '.apng'];
+
+const videoExtensions = ['.mp4', '.m4p', '.m4v', '.mpv', '.mpe', '.mpeg', '.mp2', '.mpg'];
+
 export const CarouselMedia = memo((props: IMediaProps) => {
 
     const { sliderData, currentMedia, nevigationType,
@@ -23,14 +27,18 @@ export const CarouselMedia = memo((props: IMediaProps) => {
 
     const mediaContainer = useCallback(() => {
         const checkSliderData = sliderData[currentMedia - 1].data
-        if (checkSliderData.endsWith('.jpg') || checkSliderData.endsWith('.png') || checkSliderData.endsWith('.gif')) {
+
+        const image = imageExtensions.find(elem => checkSliderData.endsWith(elem) )      
+
+        const video = videoExtensions.find(elem => checkSliderData.endsWith(elem) )
+
+        if( checkSliderData.endsWith(image ? image : 'error')){
             styledTextAlign(false)
-            return <StyledImage key={checkSliderData} src={checkSliderData} alt='Image' />
+            return <StyledImage key={checkSliderData} src={checkSliderData} alt='image' />
         }
-        else if (checkSliderData.endsWith('.mp4') || checkSliderData.endsWith('.mpv')) {
+        else if ( checkSliderData.endsWith(video ? video : 'error') ){
             styledTextAlign(false)
-            return <StyledVideo key={checkSliderData} controls autoPlay
-                src={checkSliderData}></StyledVideo>
+            return <StyledVideo key={checkSliderData} controls autoPlay  src={checkSliderData}></StyledVideo> 
         }
         else if ((typeof (checkSliderData) === 'string')) {
             styledTextAlign(true)
@@ -53,3 +61,8 @@ export const CarouselMedia = memo((props: IMediaProps) => {
         </DotsWrapper>
     </CarouselMultiMediaWrapper>
 });
+
+
+{/* <StyledVideo key={checkSliderData} controls autoPlay */}
+// src={checkSliderData}></StyledVideo> 
+// ? <StyledImage key={checkSliderData} src={checkSliderData} alt='Image' /> : null

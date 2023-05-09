@@ -34,7 +34,7 @@ export const Carousel: FC = memo(({
         setDefualtMedia(defaultMedia === 1 ? defaultMedia : defaultMedia - 1);
     }, [currentMedia, dataLength, defaultMedia, loop])
 
-    const dotsIndicatorSlider = (index: number) => {
+    const dotCallbackFunction = (index: number) => {
         setCurrentMedia(index + 1);
     };
 
@@ -70,7 +70,7 @@ export const Carousel: FC = memo(({
                     sliderData={AllMixMedia}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}
                     nevigationType={nevigationType}
-                    dotCallbackFunction={dotsIndicatorSlider}
+                    dotCallbackFunction={dotCallbackFunction}
                     orientation={orientation}
                     verticalIndicatorPosition={verticalIndicatorPosition}
                     aspectRatioForImage={aspectRatioForImage}

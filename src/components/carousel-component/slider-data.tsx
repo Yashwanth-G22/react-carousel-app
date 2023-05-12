@@ -30,5 +30,6 @@ export const AllMixMedia = [
     { data: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' },
     { data: '../images/statue-buddha-with-golden-halo.jpg' },
     { data: 'Working Good' },
-    { data: 'http://techslides.com/demos/sample-videos/small.mp4' }
+    { data: 'http://techslides.com/demos/sample-videos/small.mp4' },
+    { data: 'https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg'}
 ]

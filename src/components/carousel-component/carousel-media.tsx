@@ -28,17 +28,17 @@ export const CarouselMedia = memo((props: IMediaProps) => {
     const mediaContainer = useCallback(() => {
         const checkSliderData = sliderData[currentMedia - 1].data
 
-        const image = imageExtensions.find(elem => checkSliderData.endsWith(elem) )      
+        const image = imageExtensions.find(elem => checkSliderData.endsWith(elem))
 
-        const video = videoExtensions.find(elem => checkSliderData.endsWith(elem) )
+        const video = videoExtensions.find(elem => checkSliderData.endsWith(elem))
 
-        if( checkSliderData.endsWith(image ? image : 'error')){
+        if (checkSliderData.endsWith(image ? image : 'error')) {
             styledTextAlign(false)
             return <StyledImage key={checkSliderData} src={checkSliderData} alt='image' />
         }
-        else if ( checkSliderData.endsWith(video ? video : 'error') ){
+        else if (checkSliderData.endsWith(video ? video : 'error')) {
             styledTextAlign(false)
-            return <StyledVideo key={checkSliderData} controls autoPlay  src={checkSliderData}></StyledVideo> 
+            return <StyledVideo key={checkSliderData} controls autoPlay src={checkSliderData}></StyledVideo>
         }
         else if ((typeof (checkSliderData) === 'string')) {
             styledTextAlign(true)
@@ -61,8 +61,3 @@ export const CarouselMedia = memo((props: IMediaProps) => {
         </DotsWrapper>
     </CarouselMultiMediaWrapper>
 });
-
-
-{/* <StyledVideo key={checkSliderData} controls autoPlay */}
-// src={checkSliderData}></StyledVideo> 
-// ? <StyledImage key={checkSliderData} src={checkSliderData} alt='Image' /> : null

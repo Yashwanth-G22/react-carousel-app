@@ -37,6 +37,13 @@ export const HorizontalArrow = css`
     }
 `;
 
+export const LoopCursor = css`
+    cursor: pointer;
+    &:hover{
+        color: rgba(14, 155, 255, 0.61);
+    }
+`;
+
 export const MaintainWithAspectRatioForImage = css`
     border-radius: 0px;
     border: none;
@@ -83,10 +90,10 @@ export const ButtonsWrapper = styled.div<{ currentMedia: number, dataLength: num
     display: flex;
     flex-direction: row;
     &>:first-child{
-        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableLeft}
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? LoopCursor : DisableLeft}
     }
     &>:nth-child(2){
-        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableRight}
+        ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? LoopCursor : DisableRight}
     }
 `;
 

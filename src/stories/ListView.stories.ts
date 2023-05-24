@@ -7,14 +7,17 @@ const meta = {
     tags: ['autodocs'],
     argTypes: {
         orientation: {
-            options: ['horiental', 'vertical'],
+            options: ['horizontal', 'vertical'],
             control: { type: 'radio' }
         },
-        selectedTable: {
+        selectable: {
             options: ['single', 'multiple', 'none'],
             control: { type: 'radio' }
-        }
-       
+        },
+        items: { control: 'Array' },
+        hidden: { control: 'boolean' },
+        itemHeight: { control: 'number' },
+        setRandomSize: { control: 'boolean' },
     }
 
 } satisfies Meta<typeof List>;
@@ -24,71 +27,80 @@ type Story = StoryObj<typeof meta>;
 
 export const ControlledModeWithOnDemand: Story = {
     args: {
-        orientation: 'horiental',
-        selectedTable: 'single'
+        orientation: 'vertical',
+        selectable: 'single',
+        hidden: false,
     }
 }
 
 export const CustomActionToFetchMore: Story = {
     args: {
-        orientation:'vertical',
-        selectedTable: 'multiple'
+        orientation: 'vertical',
+        selectable: 'multiple',
+        items: []
     }
 }
 
 export const Default: Story = {
     args: {
-        orientation: 'horiental'
+        orientation: 'horizontal',
+        hidden: false,
+        itemHeight: 123
     }
 }
 
 export const DynamiSizeUsingCallbackFunction: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical',
+        hidden: false,
+        setRandomSize: true,
     }
 }
 
 export const HorizontallyVirtualizedWithDynamicWidth: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical',
+        hidden: false,
     }
 }
 export const HorizontallyVirtualizedWithFixedWidth: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical',
+        hidden: false,
     }
 }
 
 export const HorizontallyVirtualizedWithScrollToSelection: Story = {
     args: {
-        orientation: 'horiental'
+        orientation: 'horizontal',
+        selectedControl: true
     }
 }
 
-export const OnDemand:Story = {
-    args:{
-        selectedTable: 'multiple'
+export const OnDemand: Story = {
+    args: {
+        selectable: 'multiple'
     }
 }
 
 export const VerticallyVirtualizedWithDynamicHeight: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical'
     }
 }
 export const VerticallyVirtualizedWithFixedHeight: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical'
     }
 }
 export const VerticallyVirtualizedWithScrollToSelection: Story = {
     args: {
-        orientation:'vertical'
+        orientation: 'vertical'
     }
 }
 
-export const WithMultiselect:Story = {
-    args:{
-        orientation:'horiental'
+export const WithMultiselect: Story = {
+    args: {
+        orientation: 'horizontal'
     }
 }

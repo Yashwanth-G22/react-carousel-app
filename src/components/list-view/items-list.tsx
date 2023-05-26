@@ -1,33 +1,22 @@
 import { memo } from 'react';
-import { StyledItemsWrapper } from "./style";
+import { StyledItemsWrapper } from './style';
+import { IListItemsProps } from './types'
 
-interface IListItemsProps {
-    itemsArray: number[],
-    selectedItem: null | number,
-    handleClick: (index: number) => void,
-    orientation: string,
-    selectable: string,
-    multipleSelectedItems: number[],
-    height: number,
-    width: number,
-    setRandomSize: boolean,
-}
 
 export const ListItems = memo((props: IListItemsProps) => {
 
-    const { itemsArray, selectedItem, handleClick, orientation,
-        selectable, multipleSelectedItems, height, width, setRandomSize } = props;
+    const { itemsArray, selectedItem, handleClick, orientation, selectedControl,
+        selectable, multipleSelectedItems, height, width, setRandomSize, dynamicSize } = props;
 
     return <>
         {
             itemsArray.map((index) => {
                 return <div>
-                    <StyledItemsWrapper key={index} onClick={() => handleClick(index)} height={height}
-                        selectedItem={selectedItem} index={index} multipleSelectedItems={multipleSelectedItems}
+                    <StyledItemsWrapper key={index} onClick={() => handleClick(index)} height={height} selectedControl={selectedControl}
+                        selectedItem={selectedItem} index={index} multipleSelectedItems={multipleSelectedItems} dynamicSize={dynamicSize}
                         orientation={orientation} selectable={selectable} width={width} setRandomSize={setRandomSize}
                     >{`items ${index}`}</StyledItemsWrapper>
                 </div>
-
             })
         }
     </>

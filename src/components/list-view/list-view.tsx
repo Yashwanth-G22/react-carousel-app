@@ -1,42 +1,7 @@
 import { useState, memo, useCallback, useEffect } from 'react';
-import { ListViewWrapper, StyledDiv } from "./style"
+import { ListViewWrapper, StyledButton, StyledDiv } from './style';
 import { ListItems } from './items-list';
-
-interface IListViewProps {
-    /**\
-     * default value single
-     */
-    selectable?: 'single' | 'multiple' | 'none',
-    /**
-     * default value horizontal
-     */
-    orientation?: 'horizontal' | 'vertical',
-    /**
-     * default
-     */
-    items?: string[],
-    /**
-     * default value false
-     */
-    hidden?: boolean,
-    /**
-     * default value 0
-     */
-    itemHeight?: number,
-    /**
-     * default value 0
-     */
-    itemWidth?: number,
-    /**
-     * default value false
-     */
-    setRandomSize?: boolean,
-    /**
-     * default value false
-     */
-    selectedControl?: boolean,
-
-}
+import { IListViewProps } from './types';
 
 export const List = memo(({
     orientation = 'horizontal',
@@ -46,6 +11,8 @@ export const List = memo(({
     itemWidth = 0,
     setRandomSize = false,
     selectedControl = false,
+    loadMore = false,
+    dynamicSize = false,
     items= [],
 }: IListViewProps) => {
 
@@ -55,40 +22,40 @@ export const List = memo(({
 
     const getItems = useCallback((start: number, end: number) => {
         for (let i = start; i <= end; i++) {
-            items.push( `item ${i}`);
             setItemsArray(oldArray => [...oldArray, i])
         }
-    }, [items])
+    }, [])
 
     const handleClick = useCallback((index: number) => {
-        if(!selectedControl){
-
+        if (!selectedControl) {
             if (selectable === 'single') {
-                setSelectedItem(index);
+                selectedItem === index ? setSelectedItem(null) : setSelectedItem(index);
                 setMultipleSelectedItems([]);
             }
             else if (selectable === 'multiple') {
-                setMultipleSelectedItems(oldArray => [...oldArray, index]);
+                multipleSelectedItems.find((elem) => elem === index) === index ? setMultipleSelectedItems(multipleSelectedItems.filter((elem) => elem !== index)) : setMultipleSelectedItems(oldArray => [...oldArray, index]);
                 setSelectedItem(null);
             }
             else {
                 setMultipleSelectedItems([]);
                 setSelectedItem(null);
             }
-        }else{
+        } else {
             setSelectedItem(70)
         }
-    }, [selectable, selectedControl])
+        
+    }, [multipleSelectedItems, selectable, selectedControl, selectedItem])
 
-    useEffect(() => getItems(1, 500), [getItems])
+    useEffect(() => getItems(1, 450), [getItems])
 
     return <ListViewWrapper>
         <StyledDiv orientation={orientation} >
             {
-                hidden ? null : <ListItems itemsArray={itemsArray} selectedItem={selectedItem}
-                    handleClick={handleClick} orientation={orientation} height={itemHeight} width={itemWidth}
-                    selectable={selectable} multipleSelectedItems={multipleSelectedItems} setRandomSize={setRandomSize} />
+                hidden ? null : <ListItems itemsArray={itemsArray} selectedItem={selectedItem} selectedControl = {selectedControl}
+                    handleClick={handleClick} orientation={orientation} height={itemHeight} width={itemWidth} dynamicSize= {dynamicSize}
+                    selectable={selectable} multipleSelectedItems={multipleSelectedItems} setRandomSize={setRandomSize} items= {items} />
             }
         </StyledDiv>
+        {loadMore ? <StyledButton>LoadMore</StyledButton> : null}
     </ListViewWrapper>
 })

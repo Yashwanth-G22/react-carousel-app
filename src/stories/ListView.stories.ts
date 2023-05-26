@@ -14,7 +14,7 @@ const meta = {
             options: ['single', 'multiple', 'none'],
             control: { type: 'radio' }
         },
-        items: { control: 'Array' },
+        items: { control: 'object' },
         hidden: { control: 'boolean' },
         itemHeight: { control: 'number' },
         setRandomSize: { control: 'boolean' },
@@ -37,7 +37,8 @@ export const CustomActionToFetchMore: Story = {
     args: {
         orientation: 'vertical',
         selectable: 'multiple',
-        items: []
+        items: [],
+        loadMore: true
     }
 }
 
@@ -54,6 +55,7 @@ export const DynamiSizeUsingCallbackFunction: Story = {
         orientation: 'vertical',
         hidden: false,
         setRandomSize: true,
+        dynamicSize: true
     }
 }
 
@@ -95,12 +97,14 @@ export const VerticallyVirtualizedWithFixedHeight: Story = {
 }
 export const VerticallyVirtualizedWithScrollToSelection: Story = {
     args: {
-        orientation: 'vertical'
+        orientation: 'vertical',
+        selectedControl: true
     }
 }
 
 export const WithMultiselect: Story = {
     args: {
-        orientation: 'horizontal'
+        orientation: 'horizontal',
+        selectable: 'multiple',
     }
 }

@@ -2,19 +2,19 @@ import { memo, useCallback } from 'react';
 import {
     StyledImage,
     DotsWrapper, StyledTextTag,
-    StyledMutliMediaContainer,
+    StyledMultiMediaContainer,
     CarouselMultiMediaWrapper,
     DotIndication, StyledVideo
 } from './styles';
 import { IMediaProps } from './types';
 
-const imageExtensions = ['.webp', '.svg', '.png', '.pjp', '.pjpeg', '.jfif', '.jpeg', '.jpg', '.gif', '.avif', '.apng'];
+const imageExtensions = ['.web', '.svg', '.png', '.pjp', '.pjg', '.jff', '.jpeg', '.jpg', '.gif', '.avif', '.pang'];
 
 const videoExtensions = ['.mp4', '.m4p', '.m4v', '.mpv', '.mpe', '.mpeg', '.mp2', '.mpg'];
 
 export const CarouselMedia = memo((props: IMediaProps) => {
 
-    const { sliderData, currentMedia, nevigationType,
+    const { sliderData, currentMedia, navigationType,
         dotCallbackFunction, orientation, verticalIndicatorPosition,
         aspectRatioForImage, styledTextAlign } = props;
 
@@ -51,12 +51,12 @@ export const CarouselMedia = memo((props: IMediaProps) => {
     }
 
     return <CarouselMultiMediaWrapper orientation={orientation} side={verticalIndicatorPosition}>
-        <StyledMutliMediaContainer aspectRatioForImage={aspectRatioForImage} >
+        <StyledMultiMediaContainer aspectRatioForImage={aspectRatioForImage} >
             <>{mediaContainer()}</>
-        </StyledMutliMediaContainer>
+        </StyledMultiMediaContainer>
         <DotsWrapper orientation={orientation}>
             {
-                nevigationType === 'dots' ? dotsContainer() : null
+                navigationType === 'dots' ? dotsContainer() : null
             }
         </DotsWrapper>
     </CarouselMultiMediaWrapper>

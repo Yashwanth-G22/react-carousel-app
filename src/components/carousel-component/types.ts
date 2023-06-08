@@ -18,7 +18,7 @@ export interface ICarouselProps {
     /**
      * default value arrow
      */
-    nevigationType?: 'arrow' | 'dots';
+    navigationType?: 'arrow' | 'dots';
     /**
      * default value horizontal
      */
@@ -36,10 +36,6 @@ export interface ICarouselProps {
      */
     verticalIndicatorPosition?: 'left' | 'right';
     /**
-     * default value is image
-     */
-    multiMedia?: 'image' | 'text' | 'vedio';
-    /**
      * default value false
      */
     defaultSelection?: boolean;
@@ -56,7 +52,7 @@ export interface ICarouselProps {
 export interface IMediaProps {
     sliderData: ISlideImages[];
     currentMedia: number;
-    nevigationType: string;
+    navigationType: string;
     dotCallbackFunction: (index: number) => void;
     orientation: string;
     verticalIndicatorPosition: string;
@@ -71,7 +67,7 @@ export interface IArrowButtonProps {
     orientation: string;
     verticalIndicatorPosition: string;
     currentMedia: number;
-    dataLenght: number;
+    dataLength: number;
     controlled: boolean
 }
 

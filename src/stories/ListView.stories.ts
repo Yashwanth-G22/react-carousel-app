@@ -4,7 +4,7 @@ import { List } from '../components/list-view/list-view';
 const meta = {
     title: 'ListView',
     component: List,
-    tags: ['autodocs'],
+    tags: ['auto-docs'],
     argTypes: {
         orientation: {
             options: ['horizontal', 'vertical'],
@@ -50,7 +50,7 @@ export const Default: Story = {
     }
 }
 
-export const DynamiSizeUsingCallbackFunction: Story = {
+export const DynamicSizeUsingCallbackFunction: Story = {
     args: {
         orientation: 'vertical',
         hidden: false,

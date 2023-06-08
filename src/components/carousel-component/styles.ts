@@ -17,7 +17,7 @@ export const VerticalArrowLeft = css`
     left: 30px;
 `;
 
-export const VerticalArrowRignt = css`
+export const VerticalArrowRight = css`
     right: 30px;
 `;
 
@@ -125,7 +125,7 @@ export const StyledVerticalButton = styled.div<{ verticalIndicatorPosition: stri
     font-size: 3rem;
     cursor: pointer;
     color: #ebe8e8;
-    ${({ verticalIndicatorPosition }) => verticalIndicatorPosition === 'right' ? VerticalArrowRignt : VerticalArrowLeft};
+    ${({ verticalIndicatorPosition }) => verticalIndicatorPosition === 'right' ? VerticalArrowRight : VerticalArrowLeft};
     &>:first-child{
         ${({ loop, controlled }) => controlled ? ControlledDisables : loop ? 'unset' : DisableLeft}
     }
@@ -134,7 +134,7 @@ export const StyledVerticalButton = styled.div<{ verticalIndicatorPosition: stri
     }
 `;
 
-export const StyledMutliMediaContainer = styled.div<{ aspectRatioForImage: boolean }>`
+export const StyledMultiMediaContainer = styled.div<{ aspectRatioForImage: boolean }>`
         display: flex;
         flex-direction: column;
         align-items: center;

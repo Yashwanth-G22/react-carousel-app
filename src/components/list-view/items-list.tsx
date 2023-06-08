@@ -11,8 +11,8 @@ export const ListItems = memo((props: IListItemsProps) => {
     return <>
         {
             itemsArray.map((index) => {
-                return <div>
-                    <StyledItemsWrapper key={index} onClick={() => handleClick(index)} height={height} selectedControl={selectedControl}
+                return <div key={index}>
+                    <StyledItemsWrapper  onClick={() => handleClick(index)} height={height} selectedControl={selectedControl}
                         selectedItem={selectedItem} index={index} multipleSelectedItems={multipleSelectedItems} dynamicSize={dynamicSize}
                         orientation={orientation} selectable={selectable} width={width} setRandomSize={setRandomSize}
                     >{`items ${index}`}</StyledItemsWrapper>

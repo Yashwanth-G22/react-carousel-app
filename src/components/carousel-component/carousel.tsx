@@ -9,7 +9,7 @@ export const Carousel: FC = memo(({
     autoplay = false,
     loop = false,
     timeRange = 3000,
-    nevigationType = 'arrow',
+    navigationType = 'arrow',
     orientation = 'horizontal',
     verticalIndicatorPosition = 'left',
     controlled = false,
@@ -20,18 +20,18 @@ export const Carousel: FC = memo(({
 }: ICarouselProps) => {
 
     const [currentMedia, setCurrentMedia] = useState<number>(1);
-    const [defaultMedia, setDefualtMedia] = useState<number>(2);
+    const [defaultMedia, setDefaultMedia] = useState<number>(2);
     const [alignText, setAlignText] = useState<boolean>(false)
     const dataLength = AllMixMedia.length;
 
     const nextSlide = useCallback(() => {
         setCurrentMedia(currentMedia === dataLength ? loop ? 1 : currentMedia : currentMedia + 1);
-        setDefualtMedia(defaultMedia === dataLength ? defaultMedia : defaultMedia + 1);
+        setDefaultMedia(defaultMedia === dataLength ? defaultMedia : defaultMedia + 1);
     }, [currentMedia, dataLength, defaultMedia, loop])
 
     const prevSlide = useCallback(() => {
         setCurrentMedia(currentMedia === 1 ? loop ? dataLength : currentMedia : currentMedia - 1);
-        setDefualtMedia(defaultMedia === 1 ? defaultMedia : defaultMedia - 1);
+        setDefaultMedia(defaultMedia === 1 ? defaultMedia : defaultMedia - 1);
     }, [currentMedia, dataLength, defaultMedia, loop])
 
     const dotCallbackFunction = (index: number) => {
@@ -53,14 +53,14 @@ export const Carousel: FC = memo(({
     return (
         <CarouselWrapper>
             {
-                nevigationType === 'arrow' ?
+                navigationType === 'arrow' ?
                     <ArrowButtons nextSlide={nextSlide}
                         prevSlide={prevSlide}
                         loop={loop}
                         orientation={orientation}
                         verticalIndicatorPosition={verticalIndicatorPosition}
                         currentMedia={currentMedia}
-                        dataLenght={dataLength}
+                        dataLength={dataLength}
                         controlled={controlled}
                     />
                     : null
@@ -69,7 +69,7 @@ export const Carousel: FC = memo(({
                 <CarouselMedia
                     sliderData={AllMixMedia}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}
-                    nevigationType={nevigationType}
+                    navigationType={navigationType}
                     dotCallbackFunction={dotCallbackFunction}
                     orientation={orientation}
                     verticalIndicatorPosition={verticalIndicatorPosition}

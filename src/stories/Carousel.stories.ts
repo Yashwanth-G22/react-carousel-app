@@ -4,11 +4,11 @@ import { Carousel } from '../components/carousel-component/carousel';
 const meta = {
     title: 'Carousel',
     component: Carousel,
-    tags: ['autodocs'],
+    tags: ['auto-docs'],
     argTypes: {
         autoplay: { control: 'boolean' },
         loop: { control: 'boolean' },
-        nevigationType: {
+        navigationType: {
             options: ['arrow', 'dots'],
             control: { type: 'radio' },
         },
@@ -33,7 +33,7 @@ export const Autoplay: Story = {
         autoplay: true,
         loop: true,
         timeRanges: 3000,
-        nevigationType: 'arrow',
+        navigationType: 'arrow',
         orientation: 'horizontal',
     }
 }
@@ -41,14 +41,14 @@ export const Autoplay: Story = {
 export const HorizontalCarousel: Story = {
     args: {
         orientation: 'horizontal',
-        nevigationType: 'arrow',
+        navigationType: 'arrow',
     }
 }
 
 export const Loop: Story = {
     args: {
         loop: true,
-        nevigationType: 'arrow',
+        navigationType: 'arrow',
         orientation: 'horizontal',
     }
 }
@@ -57,7 +57,7 @@ export const StartsFromSecondSlide: Story = {
     args: {
         StartsFromSecondSlide: true,
         orientation: 'horizontal',
-        nevigationType: 'arrow'
+        navigationType: 'arrow'
     }
 }
 
@@ -91,7 +91,7 @@ export const WithDefaultSelection: Story = {
 
 export const WithDotIndicator: Story = {
     args: {
-        nevigationType: 'dots',
+        navigationType: 'dots',
         orientation: 'vertical',
         verticalIndicatorPosition: 'left'
     }

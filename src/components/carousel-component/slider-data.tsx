@@ -8,7 +8,7 @@ export const SliderData: ISlideImages[] = [
     { data: '../images/statue-buddha-with-golden-halo.jpg' },
 ];
 
-export const VedioSliderData: ISlideImages[] = [
+export const VideoSliderData: ISlideImages[] = [
 
     { data: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' },
     { data: 'http://techslides.com/demos/sample-videos/small.mp4' },

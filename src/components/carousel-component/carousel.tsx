@@ -1,11 +1,13 @@
-import { FC, memo, useState, useCallback } from 'react';
+import { FC, memo, useState, useCallback, useEffect } from 'react';
 import { CarouselWrapper, CarouselImageWrapper } from './styles';
 import { CarouselImages } from './carousel-images';
 import { SliderData } from './slider-data';
 import { ArrowButtons } from './arrow-buttons';
 
 interface ICarouselProps {
-    /**. default value false */
+    /*
+    * loop default value false 
+    */
     loop?: boolean;
     /**
      * default value false
@@ -19,37 +21,74 @@ interface ICarouselProps {
      * default value horizontal
      */
     orientation?: 'horizontal' | 'vertical';
+    /**
+     * default 
+     */
+    controlled?: boolean;
+    /**
+     * default is left
+     */
+    verticalIndicatorPosition?: 'left' | 'right';
+    /**
+     * default value is image
+     */
+    multiMedia?: 'image' | 'text' | 'vedio';
 }
 
 export const Carousel: FC = memo(({
+    multiMedia = 'image',
     autoplay = false,
     loop = false,
-    nevigationType = 'dots',
-    orientation = 'horizontal',
+    nevigationType = 'arrow',
+    orientation = 'vertical',
+    verticalIndicatorPosition = 'left',
+    controlled = false,
 }: ICarouselProps) => {
 
     const [currentImg, setCurrnetImg] = useState<number>(0);
-    const length = SliderData.length;
+    const dataLength = SliderData.length;
+
 
     const nextSlide = useCallback(() => {
-        setCurrnetImg(currentImg === length - 1 ? loop ? 0 : currentImg : currentImg + 1);
-    }, [currentImg, length, loop])
+        setCurrnetImg(currentImg === dataLength - 1 ? loop ? 0 : currentImg : currentImg + 1);
+    }, [currentImg, dataLength, loop])
 
     const prevSlide = useCallback(() => {
-        setCurrnetImg(currentImg === 0 ? loop ? length - 1 : currentImg : currentImg - 1);
-    }, [currentImg, length, loop])
+        setCurrnetImg(currentImg === 0 ? loop ? dataLength - 1 : currentImg : currentImg - 1);
+    }, [currentImg, dataLength, loop])
 
-    const AutoPlaySlide = useCallback(() => {
+    const dotsIndicatorSlider = useCallback((index: number) => {
+        setCurrnetImg(index);
+    }, []);
+
+    useEffect(() => {
         if (autoplay) {
-            setInterval(() => nextSlide(), 3000)
+            const time = setInterval(nextSlide, 3000);
+            console.log(currentImg);
+            currentImg === (dataLength - 1) && clearInterval(time);
         }
-    }, [autoplay, nextSlide])
+    }, [autoplay, currentImg, dataLength, nextSlide]);
+
+
 
     return (
         <CarouselWrapper>
-            <ArrowButtons nextSlide={nextSlide} prevSlide={prevSlide} loop={loop} orientation= {orientation}/>
+            {
+                nevigationType === 'arrow' ?
+                    <ArrowButtons nextSlide={nextSlide}
+                        prevSlide={prevSlide}
+                        loop={loop}
+                        orientation={orientation}
+                        verticalIndicatorPosition={verticalIndicatorPosition}
+                    />
+                    : null
+            }
             <CarouselImageWrapper>
-                <CarouselImages SliderData={SliderData} currentImg={currentImg} autoplay={AutoPlaySlide} nevigationType={nevigationType}/>
+                <CarouselImages SliderData={SliderData}
+                    currentImg={currentImg}
+                    nevigationType={nevigationType}
+                    dotsSlider={dotsIndicatorSlider}
+                    multiMedia={multiMedia} />
             </CarouselImageWrapper>
         </CarouselWrapper>
     );

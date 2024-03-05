@@ -1,12 +1,11 @@
 import { FC, memo, useState, useCallback, useEffect } from 'react';
-import { CarouselWrapper, CarouselImageWrapper } from './styles';
+import { CarouselWrapper, CarouselDataWrapper } from './styles';
 import { CarouselMedia } from './carousel-media';
 import { ArrowButtons } from './arrow-buttons';
-import { SliderData, VedioSliderData, SliderText } from './slider-data';
+import { AllMixMedia } from './slider-data';
 import { ICarouselProps } from './types';
 
 export const Carousel: FC = memo(({
-    multiMedia = 'image',
     autoplay = false,
     loop = false,
     timeRange = 3000,
@@ -17,12 +16,13 @@ export const Carousel: FC = memo(({
     selectedId = 2,
     defaultSelection = false,
     StartsFromSecondSlide = false,
+    aspectRatioForImage = false,
 }: ICarouselProps) => {
 
     const [currentMedia, setCurrentMedia] = useState<number>(1);
     const [defaultMedia, setDefualtMedia] = useState<number>(2);
-    const dataLength = (multiMedia === 'image' ? SliderData
-        : multiMedia === 'text' ? SliderText : VedioSliderData).length;
+    const [alignText, setAlignText] = useState<boolean>(false)
+    const dataLength = AllMixMedia.length;
 
     const nextSlide = useCallback(() => {
         setCurrentMedia(currentMedia === dataLength ? loop ? 1 : currentMedia : currentMedia + 1);
@@ -34,9 +34,13 @@ export const Carousel: FC = memo(({
         setDefualtMedia(defaultMedia === 1 ? defaultMedia : defaultMedia - 1);
     }, [currentMedia, dataLength, defaultMedia, loop])
 
-    const dotsIndicatorSlider = useCallback((index: number) => {
+    const dotCallbackFunction = (index: number) => {
         setCurrentMedia(index + 1);
-    }, []);
+    };
+
+    const alignTextCallback = (value: boolean) => {
+        setAlignText(value);
+    };
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
@@ -55,19 +59,23 @@ export const Carousel: FC = memo(({
                         loop={loop}
                         orientation={orientation}
                         verticalIndicatorPosition={verticalIndicatorPosition}
+                        currentMedia={currentMedia}
+                        dataLenght={dataLength}
+                        controlled={controlled}
                     />
                     : null
             }
-            <CarouselImageWrapper className={multiMedia === 'text' ? 'text' : 'media'}>
+            <CarouselDataWrapper text={alignText}>
                 <CarouselMedia
-                    SliderData={multiMedia === 'image' ? SliderData : multiMedia === 'text' ? SliderText : VedioSliderData}
+                    sliderData={AllMixMedia}
                     currentMedia={controlled ? selectedId : StartsFromSecondSlide || defaultSelection ? defaultMedia : currentMedia}
                     nevigationType={nevigationType}
-                    dotsSlider={dotsIndicatorSlider}
-                    multiMedia={multiMedia}
+                    dotCallbackFunction={dotCallbackFunction}
                     orientation={orientation}
-                    verticalIndicatorPosition={verticalIndicatorPosition} />
-            </CarouselImageWrapper>
+                    verticalIndicatorPosition={verticalIndicatorPosition}
+                    aspectRatioForImage={aspectRatioForImage}
+                    styledTextAlign={alignTextCallback} />
+            </CarouselDataWrapper>
         </CarouselWrapper>
     );
 });

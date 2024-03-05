@@ -1,49 +1,63 @@
 import { memo, useCallback } from 'react';
 import {
-    StyledImage, DotIndication,
-    CarouselDotsImageWrapper,
+    StyledImage,
     DotsWrapper, StyledTextTag,
-    StyledMutliMediaContainer
+    StyledMutliMediaContainer,
+    CarouselMultiMediaWrapper,
+    DotIndication, StyledVideo
 } from './styles';
 import { IMediaProps } from './types';
 
+const imageExtensions = ['.webp', '.svg', '.png', '.pjp', '.pjpeg', '.jfif', '.jpeg', '.jpg', '.gif', '.avif', '.apng'];
+
+const videoExtensions = ['.mp4', '.m4p', '.m4v', '.mpv', '.mpe', '.mpeg', '.mp2', '.mpg'];
+
 export const CarouselMedia = memo((props: IMediaProps) => {
 
-    const { SliderData, currentMedia, nevigationType,
-        dotsSlider, multiMedia, orientation, verticalIndicatorPosition } = props;
+    const { sliderData, currentMedia, nevigationType,
+        dotCallbackFunction, orientation, verticalIndicatorPosition,
+        aspectRatioForImage, styledTextAlign } = props;
 
-
-    const dotsIndicator = useCallback(() => {
-        return SliderData.map(({ data }, index) =>
-            <DotIndication key={data} onClick={() => dotsSlider(index)}
-                className={verticalIndicatorPosition === 'right' ? 'rightDots' : 'leftDots'}
-                style={{ backgroundColor: (currentMedia === index + 1) ? 'black' : 'white' }} />
+    const dotsContainer = useCallback(() => {
+        return sliderData.map(({ data }, index) =>
+            <DotIndication key={data} onClick={() => dotCallbackFunction(index)}
+                currentMedia={currentMedia} index={index} />
         );
-    }, [SliderData, currentMedia, dotsSlider, verticalIndicatorPosition])
+    }, [sliderData, currentMedia, dotCallbackFunction])
 
-    if (SliderData.length <= 0 || !Array.isArray(SliderData)) {
+    const mediaContainer = useCallback(() => {
+        const checkSliderData = sliderData[currentMedia - 1].data
+
+        const image = imageExtensions.find(elem => checkSliderData.endsWith(elem))
+
+        const video = videoExtensions.find(elem => checkSliderData.endsWith(elem))
+
+        if (checkSliderData.endsWith(image ? image : 'error')) {
+            styledTextAlign(false)
+            return <StyledImage key={checkSliderData} src={checkSliderData} alt='image' />
+        }
+        else if (checkSliderData.endsWith(video ? video : 'error')) {
+            styledTextAlign(false)
+            return <StyledVideo key={checkSliderData} controls autoPlay src={checkSliderData}></StyledVideo>
+        }
+        else if ((typeof (checkSliderData) === 'string')) {
+            styledTextAlign(true)
+            return <StyledTextTag key={checkSliderData}>{checkSliderData}</StyledTextTag>
+        }
+    }, [sliderData, currentMedia, styledTextAlign])
+
+    if (sliderData.length <= 0 || !Array.isArray(sliderData)) {
         return null;
     }
 
-    return <CarouselDotsImageWrapper className={orientation === 'horizontal' ? 'horizontal' : 'vertical'}>
-        <StyledMutliMediaContainer >
-            {
-                multiMedia === 'image' ?
-                    <StyledImage src={SliderData[currentMedia - 1].data} alt='Image' />
-                    :
-                    multiMedia === 'text' ?
-                        <StyledTextTag>{SliderData[currentMedia - 1].data}</StyledTextTag>
-                        :
-                        <video width={400} height={400} controls autoPlay
-                            src={SliderData[currentMedia - 1].data}></video>
-            }
+    return <CarouselMultiMediaWrapper orientation={orientation} side={verticalIndicatorPosition}>
+        <StyledMutliMediaContainer aspectRatioForImage={aspectRatioForImage} >
+            <>{mediaContainer()}</>
         </StyledMutliMediaContainer>
-        <DotsWrapper className={orientation === 'horizontal' ? 'horizontal-dots' : 'vertical-dots'}>
+        <DotsWrapper orientation={orientation}>
             {
-                nevigationType === 'dots' ? dotsIndicator() : null
+                nevigationType === 'dots' ? dotsContainer() : null
             }
         </DotsWrapper>
-    </CarouselDotsImageWrapper>
-
-
+    </CarouselMultiMediaWrapper>
 });
